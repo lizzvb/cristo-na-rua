@@ -1,0 +1,3 @@
+import Link from 'next/link'
+const names=['João','Maria','Carlos','Família de Ana','Intenção anônima']
+export default function Oracao(){return <main className="main" style={{maxWidth:900,margin:'auto'}}><Link href="/membros">← Área dos membros</Link><div className="pageTitle"><div className="eyebrow">Comunidade</div><h1 className="serif" style={{fontSize:48}}>Intenções de oração</h1><p className="muted">Depois de cada ação, continuamos levando nossos encontros ao coração de Deus.</p></div><div className="table">{names.map((n,i)=><div className="row" key={n}><div><b>{n}</b><br/><span className="muted">{i+1} pessoas rezando</span></div><div></div><button className="btn gold">Estou rezando</button></div>)}</div></main>}
