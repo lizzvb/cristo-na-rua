@@ -1,23 +1,31 @@
-'use client'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
 
-export default function Contribuicoes(){
-  const [file,setFile]=useState<File|null>(null)
-  const [status,setStatus]=useState<'aguardando'|'em_analise'|'confirmada'>('aguardando')
-  function handleFile(e:ChangeEvent<HTMLInputElement>){setFile(e.target.files?.[0]||null)}
-  function enviar(){if(file)setStatus('em_analise')}
-  return <main className="main" style={{maxWidth:800,margin:'auto'}}>
-    <Link href="/membros">← Área dos membros</Link>
-    <div className="pageTitle"><div className="eyebrow">Apoie a missão</div><h1 className="serif" style={{fontSize:48}}>Contribuição da ação</h1><p className="mutedDark">Sua contribuição é voluntária e ajuda a dividir o custo da ação entre quem escolheu participar.</p></div>
-    <div className="event">
-      <p>Custo estimado da ação</p><h2>R$ 1.000,00</h2>
-      <p>20 voluntários escolheram contribuir</p><hr/>
-      <p>Sua cota sugerida</p><h2>R$ 50,00</h2>
-      <div className="pixBox"><div className="eyebrow">PIX</div><strong>cristonarua@exemplo.org</strong><small>Chave demonstrativa — substituir pela chave oficial.</small></div>
-      <div className="proofBox"><label className="uploadLabel">Comprovante do PIX<input type="file" accept="image/*,.pdf" onChange={handleFile}/></label>{file&&<p className="fileName">📎 {file.name}</p>}<button className="btn gold" style={{width:'100%',marginTop:15}} onClick={enviar} disabled={!file || status==='em_analise' || status==='confirmada'}>{status==='em_analise'?'Comprovante enviado':'Enviar comprovante'}</button></div>
-      <div className={`statusCard ${status}`}><span className="statusIcon">{status==='aguardando'?'○':status==='em_analise'?'⏳':'✓'}</span><div><strong>{status==='aguardando'?'Aguardando comprovante':status==='em_analise'?'Em análise':'Confirmada'}</strong><p>{status==='aguardando'?'Faça o PIX e envie o comprovante para a equipe.':status==='em_analise'?'A equipe está conferindo seu comprovante. Apenas a coordenação pode visualizar o arquivo.':'A equipe confirmou sua contribuição para esta ação.'}</p></div></div>
-      <p className="muted" style={{fontSize:13}}>O comprovante é privado e não fica visível para os outros membros.</p>
-    </div>
-  </main>
+export default function Home() {
+  return <>
+    <header className="topbar"><div className="container nav">
+      <Link href="/"><img className="logo" src="/logo.jpg" alt="Cristo da Rua"/></Link>
+      <nav className="links"><a href="#sobre">Sobre</a><a href="#missao">Nossa missão</a><a href="#participar">Participar</a><a href="#apoiar">Apoie</a><Link className="btn" href="/login">Área dos membros</Link></nav>
+    </div></header>
+
+    <section className="hero"><div className="container heroInner">
+      <div className="eyebrow">Cristo da Rua</div>
+      <h1 className="serif">Levar Cristo onde Ele mais precisa ser <span>encontrado.</span></h1>
+      <p>Uma missão de encontro, serviço, oração e comunidade nas ruas. Cada ação começa com a presença e continua no coração.</p>
+      <div className="actions"><a className="btn gold" href="#sobre">Conheça a missão →</a><Link className="btn" href="/cadastro">Quero participar</Link></div>
+    </div></section>
+
+    <section className="pillars" id="missao"><div className="container grid4">
+      {[['SERVIÇO','Acolher, servir e estar presente.'],['ORAÇÃO','Levar cada encontro ao coração de Deus.'],['COMUNIDADE','Caminhar juntos nessa missão.'],['MISSÃO','Sair ao encontro e colocar a fé em ação.']].map(([a,b])=><div className="pillar" key={a}><h3>{a}</h3><p>{b}</p></div>)}
+    </div></section>
+
+    <section className="section" id="sobre"><div className="container two"><div><div className="eyebrow">Sobre o Cristo da Rua</div><h2 className="serif">Uma missão que nasce do encontro.</h2><p>O Cristo da Rua busca levar amor, dignidade e presença às pessoas em situação de rua, por meio do serviço, da partilha, da escuta e da oração.</p><a className="btn darkBtn" href="#participar">Conheça nossa história →</a></div><div className="photo"/></div></section>
+
+    <section className="section soft" id="participar"><div className="container"><div className="eyebrow">Faça parte</div><h2 className="serif">A missão continua depois da rua.</h2><div className="cards">
+      <div className="card"><div className="eyebrow">Quero participar</div><h3>Faça parte da missão</h3><p>Solicite seu cadastro. Após a aprovação da equipe, você terá acesso à área exclusiva dos membros.</p><Link href="/cadastro" className="btn gold">Solicitar cadastro →</Link></div>
+      <div className="card" id="apoiar"><div className="eyebrow">Quero ajudar</div><h3>Apoie uma ação</h3><p>Os membros poderão acompanhar a necessidade de cada ação e sua cota sugerida de contribuição.</p><Link href="/login" className="btn">Área dos membros →</Link></div>
+      <div className="card"><div className="eyebrow">Comunidade</div><h3>Depois da rua, a oração</h3><p>Continue a missão em comunidade através das intenções de oração e dos encontros seguintes.</p><Link href="/login" className="btn">Entrar →</Link></div>
+    </div></div></section>
+
+    <footer className="footer"><div className="container footerGrid"><div><img className="logo" src="/logo.jpg" alt="Cristo da Rua"/><p className="muted">Mais que ação, encontro.</p></div><div className="muted">Cristo da Rua<br/>Serviço • Oração • Comunidade</div></div></footer>
+  </>
 }
